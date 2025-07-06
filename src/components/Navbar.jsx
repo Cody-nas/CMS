@@ -1,179 +1,258 @@
 import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
-import { FaBars, FaTimes } from "react-icons/fa";
-import { motion, AnimatePresence } from "framer-motion";
-import Logo from "../assets/Logo.png";
+import { FaBars, FaTimes, FaChevronDown } from "react-icons/fa";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const location = useLocation();
+  const [activeDropdown, setActiveDropdown] = useState(null);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   const toggleMenu = () => setIsOpen(!isOpen);
-
-  const currentPath = location.pathname;
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 10);
     };
+    const handleMouseMove = (e) => {
+      setMousePosition({
+        x: (e.clientX / window.innerWidth) * 100,
+        y: (e.clientY / window.innerHeight) * 100,
+      });
+    };
+
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("mousemove", handleMouseMove);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("mousemove", handleMouseMove);
+    };
   }, []);
 
+  const handleDropdownToggle = (index) => {
+    setActiveDropdown(activeDropdown === index ? null : index);
+  };
+
   const links = [
-    { name: "Home", path: "/" },
-    { name: "Features", path: "/features" },
-    { name: "Pricing", path: "/pricing" },
-    { name: "Contact", path: "/contact" },
+    {
+      name: "Home",
+      path: "/",
+      hasDropdown: false,
+    },
+    {
+      name: "Features",
+      path: "/features",
+      hasDropdown: true,
+      dropdown: [
+        {
+          name: "AI Website Builder",
+          path: "/features/ai-builder",
+          icon: "🤖",
+        },
+        { name: "Template Gallery", path: "/features/templates", icon: "🎨" },
+        { name: "SEO Tools", path: "/features/seo", icon: "📈" },
+        { name: "Analytics", path: "/features/analytics", icon: "📊" },
+      ],
+    },
+    {
+      name: "Pricing",
+      path: "/pricing",
+      hasDropdown: true,
+      dropdown: [
+        { name: "Starter Plan", path: "/pricing/starter", icon: "🚀" },
+        { name: "Professional", path: "/pricing/pro", icon: "💼" },
+        { name: "Enterprise", path: "/pricing/enterprise", icon: "🏢" },
+        { name: "Custom Solutions", path: "/pricing/custom", icon: "⚙️" },
+      ],
+    },
+    {
+      name: "Contact",
+      path: "/contact",
+      hasDropdown: true,
+      dropdown: [
+        { name: "Get Support", path: "/contact/support", icon: "🛠️" },
+        { name: "Sales Team", path: "/contact/sales", icon: "💬" },
+        { name: "Partnership", path: "/contact/partnership", icon: "🤝" },
+        { name: "Careers", path: "/contact/careers", icon: "💼" },
+      ],
+    },
   ];
 
   return (
-    <motion.nav
-      initial={{ y: -100, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
+    <nav
       className={`${
-        scrolled 
-          ? "shadow-2xl bg-white/90 backdrop-blur-xl border-white/20" 
-          : "bg-white/80 backdrop-blur-md border-white/10"
-      } fixed top-4 left-1/2 -translate-x-1/2 z-50 w-full max-w-6xl rounded-2xl px-6 py-3 flex items-center justify-between transition-all duration-500 border hover:shadow-xl`}
+        scrolled
+          ? "bg-slate-900/95 backdrop-blur-xl border border-purple-500/20 shadow-2xl shadow-purple-500/10"
+          : "bg-slate-900/90 backdrop-blur-md border border-slate-700/50"
+      } fixed top-4 left-1/2 -translate-x-1/2 z-50 w-full max-w-6xl rounded-2xl px-6 py-3 flex items-center justify-between transition-all duration-500`}
     >
+      {/* Dynamic Background Gradient */}
+      <div
+        className="absolute inset-0 opacity-20 rounded-2xl transition-all duration-1000"
+        style={{
+          background: `radial-gradient(circle at ${mousePosition.x}% ${mousePosition.y}%, rgba(139, 92, 246, 0.2) 0%, transparent 50%)`,
+        }}
+      />
+
       {/* Logo */}
-      <Link to="/" className="flex items-center space-x-2 group">
-        <motion.div
-          whileHover={{ scale: 1.05, rotate: 5 }}
-          transition={{ type: "spring", stiffness: 400, damping: 10 }}
-        >
-          <img src={Logo} alt="Logo" className="w-10 h-10 rounded-lg shadow-sm" />
-        </motion.div>
-        <span className="font-bold text-xl text-gray-800 group-hover:text-[#440829] transition-colors duration-300">
-          Brand
+      <div className="flex items-center space-x-3 relative z-10">
+        <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center shadow-lg transform hover:scale-110 transition-transform duration-300">
+          <span className="text-white font-bold text-sm">AI</span>
+        </div>
+        <span className="text-white font-bold text-lg hidden sm:block">
+          WebBuilder
         </span>
-      </Link>
+      </div>
 
       {/* Desktop Links */}
-      <ul className="hidden md:flex items-center space-x-1">
+      <ul className="hidden md:flex items-center space-x-1 relative z-10">
         {links.map((link, index) => (
-          <motion.li
-            key={link.name}
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.1 + 0.3 }}
-          >
-            <Link
-              to={link.path}
-              className={`relative px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 group ${
-                currentPath === link.path 
-                  ? "text-[#440829] bg-gradient-to-r from-purple-50 to-pink-50 shadow-sm" 
-                  : "text-gray-600 hover:text-[#440829] hover:bg-gray-50"
-              }`}
+          <li key={link.name} className="relative group">
+            <button
+              onClick={() => link.hasDropdown && handleDropdownToggle(index)}
+              className="flex items-center space-x-1 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 text-gray-300 hover:text-white hover:bg-white/10 backdrop-blur-sm"
             >
-              {link.name}
-              {currentPath === link.path && (
-                <motion.div
-                  layoutId="activeTab"
-                  className="absolute inset-0 bg-gradient-to-r from-purple-100 to-pink-100 rounded-xl -z-10"
-                  transition={{ type: "spring", stiffness: 500, damping: 30 }}
+              <span>{link.name}</span>
+              {link.hasDropdown && (
+                <FaChevronDown
+                  className={`w-3 h-3 transition-transform duration-300 ${
+                    activeDropdown === index ? "rotate-180" : ""
+                  }`}
                 />
               )}
-              <span className="absolute inset-x-0 bottom-0 h-0.5 bg-gradient-to-r from-[#440829] to-purple-600 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
-            </Link>
-          </motion.li>
+            </button>
+
+            {/* Dropdown Menu */}
+            {link.hasDropdown && (
+              <div
+                className={`absolute top-full left-0 mt-2 w-64 transition-all duration-300 ${
+                  activeDropdown === index
+                    ? "opacity-100 visible translate-y-0"
+                    : "opacity-0 invisible -translate-y-2"
+                }`}
+              >
+                <div className="bg-slate-800/95 backdrop-blur-xl rounded-xl shadow-2xl border border-purple-500/20 p-2">
+                  <div className="absolute -top-2 left-6 w-4 h-4 bg-slate-800 rotate-45 border-l border-t border-purple-500/20"></div>
+                  {link.dropdown.map((item, idx) => (
+                    <a
+                      key={idx}
+                      href={item.path}
+                      className="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 hover:text-white hover:bg-purple-500/20 transition-all duration-200 group"
+                    >
+                      <span className="text-lg">{item.icon}</span>
+                      <span className="text-sm font-medium">{item.name}</span>
+                      <svg
+                        className="w-4 h-4 ml-auto opacity-0 group-hover:opacity-100 transition-opacity"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M9 5l7 7-7 7"
+                        />
+                      </svg>
+                    </a>
+                  ))}
+                </div>
+              </div>
+            )}
+          </li>
         ))}
       </ul>
 
       {/* CTA Button */}
-      <motion.button
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        className="hidden md:flex items-center space-x-2 bg-gradient-to-r from-[#3434ad] to-purple-600 hover:from-purple-600 hover:to-[#3434ad] text-white text-sm font-semibold px-6 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group"
-      >
-        <span>Get Started</span>
-        <motion.div
-          initial={{ x: 0 }}
-          whileHover={{ x: 4 }}
-          transition={{ type: "spring", stiffness: 400, damping: 10 }}
+      <button className="hidden md:flex items-center space-x-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white text-sm font-semibold px-6 py-3 rounded-xl shadow-lg hover:shadow-purple-500/25 transform hover:-translate-y-0.5 transition-all duration-300 relative z-10 group overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur"></div>
+        <span className="relative z-10">Get Started</span>
+        <svg
+          className="w-4 h-4 relative z-10 transform group-hover:translate-x-1 transition-transform"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
         >
-          →
-        </motion.div>
-      </motion.button>
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M13 7l5 5m0 0l-5 5m5-5H6"
+          />
+        </svg>
+      </button>
 
       {/* Mobile Toggle */}
-      <div className="md:hidden">
-        <motion.button
+      <div className="md:hidden relative z-10">
+        <button
           onClick={toggleMenu}
-          whileTap={{ scale: 0.9 }}
-          className="p-2 rounded-xl hover:bg-gray-100 transition-colors duration-200"
+          className="p-2 rounded-lg hover:bg-white/10 transition-colors duration-200 text-gray-300 hover:text-white"
         >
-          <motion.div
-            animate={isOpen ? { rotate: 180 } : { rotate: 0 }}
-            transition={{ duration: 0.3 }}
-          >
+          <div className="transform transition-transform duration-300">
             {isOpen ? <FaTimes size={20} /> : <FaBars size={20} />}
-          </motion.div>
-        </motion.button>
+          </div>
+        </button>
       </div>
 
       {/* Mobile Menu */}
-      <AnimatePresence>
-        {isOpen && (
-          <>
-            {/* Backdrop */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setIsOpen(false)}
-              className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 md:hidden"
-            />
-            
-            {/* Menu */}
-            <motion.div
-              initial={{ opacity: 0, y: -20, scale: 0.95 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -20, scale: 0.95 }}
-              transition={{ duration: 0.3, ease: "easeOut" }}
-              className="absolute top-20 left-4 right-4 bg-white/95 backdrop-blur-xl shadow-2xl rounded-2xl p-6 z-50 md:hidden border border-white/20"
-            >
-              <div className="flex flex-col space-y-4">
-                {links.map((link, index) => (
-                  <motion.div
-                    key={link.name}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.1 }}
+      {isOpen && (
+        <>
+          {/* Backdrop */}
+          <div
+            onClick={() => setIsOpen(false)}
+            className="fixed inset-0 z-40 md:hidden bg-black/50 backdrop-blur-sm"
+          />
+
+          {/* Menu Panel */}
+          <div className="absolute top-20 left-4 right-4 bg-slate-900/95 backdrop-blur-xl shadow-2xl rounded-2xl p-6 z-50 md:hidden border border-purple-500/20">
+            <div className="flex flex-col space-y-2">
+              {links.map((link, index) => (
+                <div key={link.name} className="space-y-2">
+                  <button
+                    onClick={() =>
+                      link.hasDropdown && handleDropdownToggle(index)
+                    }
+                    className="flex items-center justify-between w-full px-4 py-3 rounded-xl text-base font-medium transition-all duration-300 text-gray-300 hover:text-white hover:bg-white/10"
                   >
-                    <Link
-                      to={link.path}
-                      onClick={() => setIsOpen(false)}
-                      className={`block px-4 py-3 rounded-xl text-base font-medium transition-all duration-300 ${
-                        currentPath === link.path 
-                          ? "text-[#440829] bg-gradient-to-r from-purple-50 to-pink-50 shadow-sm" 
-                          : "text-gray-600 hover:text-[#440829] hover:bg-gray-50"
-                      }`}
-                    >
-                      {link.name}
-                    </Link>
-                  </motion.div>
-                ))}
-                
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.4 }}
-                  className="pt-4 border-t border-gray-100"
-                >
-                  <button className="w-full bg-gradient-to-r from-[#3434ad] to-purple-600 hover:from-purple-600 hover:to-[#3434ad] text-white font-semibold px-6 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
-                    Get Started
+                    <span>{link.name}</span>
+                    {link.hasDropdown && (
+                      <FaChevronDown
+                        className={`w-4 h-4 transition-transform duration-300 ${
+                          activeDropdown === index ? "rotate-180" : ""
+                        }`}
+                      />
+                    )}
                   </button>
-                </motion.div>
+
+                  {link.hasDropdown && activeDropdown === index && (
+                    <div className="ml-4 space-y-1">
+                      {link.dropdown.map((item, idx) => (
+                        <a
+                          key={idx}
+                          href={item.path}
+                          onClick={() => setIsOpen(false)}
+                          className="flex items-center space-x-3 px-4 py-2 rounded-lg text-gray-400 hover:text-white hover:bg-purple-500/20 transition-all duration-200"
+                        >
+                          <span>{item.icon}</span>
+                          <span className="text-sm">{item.name}</span>
+                        </a>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))}
+
+              {/* Mobile CTA Button */}
+              <div className="pt-4 border-t border-slate-700">
+                <button className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold px-6 py-3 rounded-xl shadow-lg hover:shadow-purple-500/25 transition-all duration-300">
+                  Get Started
+                </button>
               </div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
-    </motion.nav>
+            </div>
+          </div>
+        </>
+      )}
+    </nav>
   );
 };
 
