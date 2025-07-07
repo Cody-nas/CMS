@@ -111,15 +111,12 @@ const Hero = () => {
 
           {/* Glowing Subheading */}
           <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto mb-12 leading-relaxed">
-            We help businesses and individuals launch, scale, and succeed with
-            <span className="text-purple-300 font-semibold"> beautiful</span>,
-            <span className="text-cyan-300 font-semibold"> functional</span>,
-            and
-            <span className="text-pink-300 font-semibold">
-              {" "}
-              user-focused
-            </span>{" "}
-            digital products.
+            A fully composable CMS that allows you to design
+            <span className="text-purple-300 font-semibold"> a</span>,
+            <span className="text-cyan-300 font-semibold"> digital</span>,
+            experience
+            <span className="text-pink-300 font-semibold"> to your</span>{" "}
+            vision.
           </p>
 
           {/* CTA Buttons */}
@@ -131,7 +128,7 @@ const Hero = () => {
             >
               <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur" />
               <span className="relative z-10 flex items-center gap-2 cursor-pointer">
-                Explore Features
+                Try Now
                 <svg
                   className="w-5 h-5 transform group-hover:translate-x-1 transition-transform"
                   fill="none"

@@ -11,10 +11,10 @@ import {
 const Features = () => {
   const features = [
     {
-      category: "Automate Tasks",
+      // category: "Automate Tasks",
       title: "Save Hours with AI-Powered Automation",
       description:
-        "Reduce manual work with smart automation that streamlines repetitive tasks, freeing up time for what matters most.",
+        "Create compelling content across more devices than ever with tools that build versatile, structured content and integrate seamlessly with a wide range of digital marketing channels.",
       cta: "Get Started",
       bgColor: "bg-gradient-to-br from-orange-50 to-orange-100",
       icon: <FaBolt className="w-6 h-6 text-orange-600" />,
@@ -23,10 +23,10 @@ const Features = () => {
       ),
     },
     {
-      category: "Real-Time Collaboration",
-      title: "Work Seamlessly with Your Team",
+      // category: "Real-Time Collaboration",
+      title: "Lower cost of ownership",
       description:
-        "Bring your team together with live collaboration, instant feedback, and version control—no more messy email threads.",
+        "With no vendor lock-in and low-code/no-code options available, marketers can independently drive your digital strategy and publishing workflows.",
       cta: "Try It Now",
       bgColor: "bg-gradient-to-br from-blue-50 to-blue-100",
       icon: <FaUsers className="w-6 h-6 text-blue-600" />,
@@ -35,10 +35,10 @@ const Features = () => {
       ),
     },
     {
-      category: "Powerful Integrations",
-      title: "Connect with Your Favorite Tools",
+      // category: "Powerful Integrations",
+      title: "Limitless flexibility",
       description:
-        "Integrate with Slack, Notion, Zapier, and more to keep your workflow efficient and connected across all platforms.",
+        "A fully composable, open source, API-first platform that allows you to design around your vision and your user needs. A global network of open source contributors continuously develops and innovates on core features.",
       cta: "Explore Integrations",
       bgColor: "bg-gradient-to-br from-purple-50 to-purple-100",
       icon: <FaLink className="w-6 h-6 text-purple-600" />,
@@ -47,10 +47,10 @@ const Features = () => {
       ),
     },
     {
-      category: "Advanced Analytics",
-      title: "Make Data-Driven Decisions",
+      // category: "Advanced Analytics",
+      title: "Enterprise-grade tooling",
       description:
-        "Gain insights with real-time analytics and reports, helping you optimize performance and drive better results.",
+        "The most accessible, secure open source DXP available. It adheres to industry standard privacy and security standards and checks all the boxes for your IT team.",
       cta: "View Insights",
       bgColor: "bg-gradient-to-br from-green-50 to-green-100",
       icon: <FaChartBar className="w-6 h-6 text-green-600" />,
