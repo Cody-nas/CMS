@@ -82,7 +82,7 @@ const Navbar = () => {
       </ul>
 
       {/* CTA Button */}
-      <button className="hidden md:flex items-center space-x-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white text-sm font-semibold px-6 py-3 rounded-xl shadow-lg hover:shadow-purple-500/25 transform hover:-translate-y-0.5 transition-all duration-300 relative z-10 group overflow-hidden">
+      <button className="hidden md:flex items-center space-x-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white text-sm font-semibold px-6 py-3 rounded-xl shadow-lg hover:shadow-purple-500/25 transform hover:-translate-y-0.5 transition-all duration-300 relative z-10 group overflow-hidden cursor-pointer">
         <span className="relative z-10">Get Started</span>
       </button>
 

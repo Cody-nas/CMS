@@ -130,7 +130,7 @@ const Hero = () => {
               className="group relative px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold rounded-2xl shadow-2xl hover:shadow-purple-500/25 transform hover:-translate-y-1 transition-all duration-300 overflow-hidden"
             >
               <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur" />
-              <span className="relative z-10 flex items-center gap-2">
+              <span className="relative z-10 flex items-center gap-2 cursor-pointer">
                 Explore Features
                 <svg
                   className="w-5 h-5 transform group-hover:translate-x-1 transition-transform"
@@ -148,7 +148,7 @@ const Hero = () => {
               </span>
             </button>
 
-            <button className="px-8 py-4 bg-white/10 backdrop-blur-sm text-white font-semibold rounded-2xl border border-white/20 hover:bg-white/20 transform hover:-translate-y-1 transition-all duration-300">
+            <button className="px-8 py-4 bg-white/10 backdrop-blur-sm text-white font-semibold rounded-2xl border border-white/20 hover:bg-white/20 transform hover:-translate-y-1 transition-all duration-300 cursor-pointer">
               Watch Demo
             </button>
           </div>
