@@ -5,6 +5,7 @@ import { FaBars, FaTimes } from "react-icons/fa";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [showNavbar, setShowNavbar] = useState(true);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const location = useLocation();
 
@@ -12,8 +13,16 @@ const Navbar = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 10);
+      const heroHeight = window.innerHeight; // Assuming hero section is full viewport height
+      const scrollY = window.scrollY;
+
+      // Show navbar only when in hero section
+      setShowNavbar(scrollY < heroHeight - 80); // Hide 100px before hero ends
+
+      // Keep the scrolled state for styling
+      setScrolled(scrollY > 10);
     };
+
     const handleMouseMove = (e) => {
       setMousePosition({
         x: (e.clientX / window.innerWidth) * 100,
@@ -43,7 +52,11 @@ const Navbar = () => {
         scrolled
           ? "bg-slate-900/95 backdrop-blur-xl border border-purple-500/20 shadow-2xl shadow-purple-500/10"
           : "bg-slate-900/90 backdrop-blur-md border border-slate-700/50"
-      } fixed top-4 left-1/2 -translate-x-1/2 z-50 w-full max-w-6xl rounded-2xl px-6 py-3 flex items-center justify-between transition-all duration-500`}
+      } fixed top-2 left-1/2 -translate-x-1/2 z-50 w-full max-w-6xl rounded-2xl px-6 py-3 flex items-center justify-between transition-all duration-500 ${
+        showNavbar
+          ? "opacity-100 translate-y-0"
+          : "opacity-0 -translate-y-4 pointer-events-none"
+      }`}
     >
       {/* Background Gradient Effect */}
       <div
