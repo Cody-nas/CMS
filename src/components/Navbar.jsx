@@ -134,9 +134,11 @@ const Navbar = () => {
                 </Link>
               ))}
               <div className="pt-4 border-t border-slate-700">
-                <button className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold px-6 py-3 rounded-xl shadow-lg hover:shadow-purple-500/25 transition-all duration-300">
-                  Get Started
-                </button>
+                <Link to="/onboarding">
+                  <button className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold px-6 py-3 rounded-xl shadow-lg hover:shadow-purple-500/25 transition-all duration-300">
+                    Get Started
+                  </button>
+                </Link>
               </div>
             </div>
           </div>
