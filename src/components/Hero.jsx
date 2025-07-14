@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const Hero = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -73,14 +74,10 @@ const Hero = () => {
       <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:50px_50px]" />
 
       {/* Content */}
-      <div className="relative z-10 flex items-center justify-center min-h-screen px-6 md:px-12 ">
+      <div className="relative z-10 flex items-center justify-center min-h-screen px-6 md:px-12">
         <div className="max-w-6xl mx-auto text-center">
           {/* Animated Badge */}
           <div className="inline-flex items-center mb-6 md:mb-8 px-3 py-2 md:px-4 md:py-2.5 bg-white/10 backdrop-blur-sm rounded-full border border-white/20 text-white text-xs md:text-sm font-medium shadow-lg hover:shadow-purple-500/20 hover:bg-white/15 transition-all duration-300 group cursor-pointer">
-            {/* <div className="relative mr-2 md:mr-3">
-              <span className="w-2 h-2 md:w-2.5 md:h-2.5 bg-green-400 rounded-full animate-ping absolute" />
-              <span className="w-2 h-2 md:w-2.5 md:h-2.5 bg-green-400 rounded-full relative" />
-            </div> */}
             <span className="bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent font-semibold">
               AI-Powered
             </span>
@@ -109,7 +106,7 @@ const Hero = () => {
             </span>
           </h1>
 
-          {/* Glowing Subheading */}
+          {/* Subheading */}
           <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto mb-12 leading-relaxed">
             A fully composable CMS that allows you to design
             <span className="text-purple-300 font-semibold"> a</span>,
@@ -127,68 +124,34 @@ const Hero = () => {
               className="group relative px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold rounded-2xl shadow-2xl hover:shadow-purple-500/25 transform hover:-translate-y-1 transition-all duration-300 overflow-hidden"
             >
               <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur" />
-              <span className="relative z-10 flex items-center gap-2 cursor-pointer">
-                Try Now
-                <svg
-                  className="w-5 h-5 transform group-hover:translate-x-1 transition-transform"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M13 7l5 5m0 0l-5 5m5-5H6"
-                  />
-                </svg>
-              </span>
+              <Link to="/onboarding">
+                <span className="relative z-10 flex items-center gap-2 cursor-pointer">
+                  Try Now
+                  <svg
+                    className="w-5 h-5 transform group-hover:translate-x-1 transition-transform"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M13 7l5 5m0 0l-5 5m5-5H6"
+                    />
+                  </svg>
+                </span>
+              </Link>
             </button>
 
             <button className="px-8 py-4 bg-white/10 backdrop-blur-sm text-white font-semibold rounded-2xl border border-white/20 hover:bg-white/20 transform hover:-translate-y-1 transition-all duration-300 cursor-pointer">
               Watch Demo
             </button>
           </div>
-
-          {/* Stats */}
-          {/* <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-            {[
-              { number: "10K+", label: "Websites Created" },
-              { number: "99%", label: "Client Satisfaction" },
-              { number: "24/7", label: "Support Available" },
-            ].map((stat, index) => (
-              <div
-                key={index}
-                className="text-center transform hover:scale-105 transition-transform duration-300"
-              >
-                <div className="text-3xl md:text-4xl font-bold  mb-2 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-                  {stat.number}
-                </div>
-                <div className="text-gray-400 text-sm">{stat.label}</div>
-              </div>
-            ))}
-          </div> */}
         </div>
       </div>
 
-      {/* Scroll Indicator */}
-      {/* <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white/60 animate-bounce">
-        <svg
-          className="w-6 h-6"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M19 14l-7 7m0 0l-7-7m7 7V3"
-          />
-        </svg>
-      </div> */}
-
-      <style jsx>{`
+      <style>{`
         @keyframes float {
           0%,
           100% {
